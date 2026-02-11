@@ -1,0 +1,54 @@
+{
+  "name": "@pocket-wallet/squads-client",
+  "version": "0.1.0",
+  "description": "Kit-native TypeScript client for Squads Smart Account Program (Codama-generated)",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "scripts": {
+    "generate": "node codama.mjs",
+    "patch": "node -e \"const fs = require('fs'); const p = 'src/generated/types/index.ts'; let c = fs.readFileSync(p, 'utf8'); if (!c.includes('../../types')) { fs.appendFileSync(p, '\\n// Custom types\\nexport * from \\\"../../types\\\";\\n'); console.log('Patched'); } else { console.log('Already patched'); }\"",
+    "build": "tsc",
+    "rebuild": "npm run generate && npm run patch && npm run build",
+    "dev": "tsc --watch",
+    "clean": "rm -rf dist src/generated",
+    "lint": "eslint src --ext .ts",
+    "test": "vitest"
+  },
+  "dependencies": {
+    "@solana/kit": "^2.1.0",
+    "@solana-program/system": "^0.7.0",
+    "@solana-program/token": "^0.5.0",
+    "@solana-program/token-2022": "^0.4.0"
+  },
+  "devDependencies": {
+    "codama": "^1.0.0",
+    "@codama/nodes-from-anchor": "^1.0.0",
+    "@codama/renderers-js": "^1.0.0",
+    "@types/node": "^22.0.0",
+    "typescript": "^5.7.0",
+    "vitest": "^2.0.0"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
+  "keywords": [
+    "solana",
+    "squads",
+    "multisig",
+    "smart-account",
+    "kit",
+    "codama"
+  ],
+  "license": "MIT"
+}
